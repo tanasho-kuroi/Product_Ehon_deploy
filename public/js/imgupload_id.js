@@ -26,6 +26,7 @@ let imgSampleR; //firebase上の画像URL
 let uploadRef;
 let readMaxPage = 0; //読み込んだページのMax値。これ以下のページは読み込みしない(２重読み込み防止)。
 let totalPageValue; //HTMLに登録したページ数の最大値。turn.min.jsから情報引っ張ってくる
+totalPageValue = $('#flipbook').data().totalPages / 2;
 
 ///////////  開いているPageから写真のPath取得  /////////////
 const getPicPath = function (upPage) {
@@ -56,7 +57,6 @@ const imgUploadBook = async function (uploadRef) {
       //HTMLに表示
       console.log(url);
       imgSampleR.src = url;
-
       // imgSampleR.style.width = 100 + '%';
       // imgSampleR.style.height = 90 + '%';
       //
@@ -72,10 +72,10 @@ const imgUploadBook = async function (uploadRef) {
   return uploadRef;
 };
 
-////// flipBookが変更された際に処理開始 //////
+////// pageめくりされた際(flipBookが変更された際)に処理開始 //////
 flipBook.addEventListener('click', (e, page) => {
   nowPage = $('#flipbook').turn('page'); //page数の取得
-  totalPageValue = $('#flipbook').data().totalPages / 2;
+  // totalPageValue = $('#flipbook').data().totalPages / 2;
 
   upPage = Math.floor(nowPage / 2) + 1; //1ページ先ということで,+1。２ページ先はturn.jsの使用でまだ認識されないため不可。
   if (totalPageValue >= upPage) {
@@ -105,7 +105,7 @@ flipBook.addEventListener('click', (e, page) => {
 
 window.onload = async () => {
   //htmlロード完了したらストレージの画像を表示してみる
-  for (let i = 0; i <= 1; i++) {
+  for (let i = 0; i <= 6; i++) {
     upPage = i;
     //  開いているPageから写真のPath取得
     await getPicPath(upPage);
