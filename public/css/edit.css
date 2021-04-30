@@ -66,6 +66,7 @@ body {
 .edit-menu-container {
   display: flex;
   justify-content: space-around;
+  text-align: center;
 }
 /* .edit-menu__title,
 .edit-menu__upload-img {
@@ -90,23 +91,8 @@ body {
   justify-content: center;
   align-items: center;
 } */
-.edit-menu__title
-  a,
-/* .edit-menu__upload-img
-  a {
-  color: black;
-  text-decoration: none;
-} */
-/* 
-#fileup {
-  background-color: rgba(
-    53,
-    252,
-    152,
-    0.938
-  );
-  border-radius: 50%;
-} */
+/* .edit-menu__title
+  a, */
 
 /* input[type="file"] {
   background-color: rgba(
@@ -120,16 +106,19 @@ body {
 
 .edit-menu__upload-img {
   display: inline-block;
-  border-radius: 20%; /* 角丸       */
-  font-size: 18pt; /* 文字サイズ */
-  color: darkblue;
-  text-align: center; /* 文字位置   */
-  cursor: pointer; /* カーソル   */
-  padding: 0px
-    0px
-    30px; /* 余白       */
-  background: skyblue; /* 背景色     */
-  color: #000000; /* 文字色     */
+  border-radius: 20%;
+  font-size: 18pt;
+  color: rgb(
+    4,
+    4,
+    116
+  );
+  display: flex;
+  /* text-align: center; */
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: skyblue;
   line-height: 1em; /* 1行の高さ  */
   transition: 0.3s; /* なめらか変化 */
   box-shadow: 6px
@@ -140,8 +129,11 @@ body {
     solid
     #000066; /* 枠の指定 */
   width: 300px;
-  height: 40px;
+  height: 60px;
 }
+
+/*  */
+/*  */
 .edit-menu__page-edit__contents {
   height: 40px;
   width: 200px;

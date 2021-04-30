@@ -5,24 +5,38 @@ body {
     auto;
   width: 90%;
 }
+/* 絵本の領域 */
 .view-container {
   width: 100%;
   position: relative;
+  margin-top: 20px;
+  margin-left: 10px;
 }
+/* flipbook適用(範囲的にはview-containerと一緒) */
 .view__area {
   width: 100%;
   height: 480px;
+  cursor: pointer;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+}
+
+.view__text-contents {
+  border: solid
+    1px;
+  background-color: olive;
+  font-size: 24pt;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.view__text-contents,
-.view__img-contents {
-  border: solid
-    1px;
-  height: 440px;
-  background-color: olive;
+.view__text-contents__p {
+  width: 85%;
+  justify-content: center;
+  /* text-align: center; */
 }
+
 .view__img-contents {
   background-color: rgb(
     184,
@@ -30,49 +44,62 @@ body {
     71
   );
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
+  align-content: space-between;
 }
 
-.contents__img {
-  width: 60%;
-  height: 50%;
-  background-color: white;
-  border: solid
-    1px;
+.contents__firstPic,
+.contents__lastPic {
+  width: 90%;
+  border-radius: 20%;
+  height: 70%;
+  padding: 12px
+    0px
+    12px;
 }
-.contents__titele
+
+.contents__title {
+  height: 30%;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+.contents__title
   span
   p {
-  text-align: center;
+  align-items: center;
   font-size: 2rem;
   font-weight: bold;
 }
-.contents__titele
+.contents__title
   span
   p:nth-child(1) {
   margin-bottom: 0;
 }
-.contents__titele
+.contents__title
   span
   p:nth-child(2) {
   margin: 0;
 }
 
 /* ストーリーセクション */
+
+/* .contents__img {
+  width: 60%;
+  height: 50%;
+  background-color: white;
+  border: solid 1px;
+  align-items: center;
+} */
+
 .view__img-contents__main {
   background-color: bisque;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* width: 320px;
-  height: 320px; */
-}
-
-.firstPic,
-.lastPic {
-  width: 80%;
 }
 
 .pagePic {
@@ -97,8 +124,8 @@ body {
   a {
   color: black;
   text-decoration: none;
-  height: 100px;
-  width: 100px;
+  /* height: 100px;
+  width: 100px; */
   border: solid
     1px;
   border-radius: 40%;
@@ -106,6 +133,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .next-container {
   background-image: url("../img/next.png");
   background-position: center
