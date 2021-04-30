@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/edit.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>header</header>
+    <main>
+      <!-- ストーリー編集ページ -->
+      <!-- このセクションに本のページを動的に追加（で、できると思います） -->
+      <section class="edit-container" id="first_page">
+        <div class="edit__area">
+          <div class="back-container"></div>
+          <div class="input-container">
+            <div class="input__title-container">
+              <p>ストーリー</p>
+              <div class="input__title__area">
+                <textarea name="title" id="" cols="60" rows="5"></textarea>
+              </div>
+            </div>
+            <div class="input__fontsize-contaier">
+              <p>文字サイズ</p>
+              <div class="input__fontsize__area">
+                <input type="number" name="fontsize" />
+              </div>
+            </div>
+          </div>
+          <div class="edit-preview__book">
+            <!-- 写真デモ -->
+            <div class="contents__img"></div>
+            <!-- imgタグに写真表示 -->
+            <!-- <img src="" alt=""> -->
+          </div>
+          <div class="next-container"></div>
+        </div>
+        <div class="line"></div>
+        <div class="edit-menu-container">
+          <div class="edit-submit">
+            <a href="editMenu_story.html">決定</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>footer</footer>
+  </body>
+</html>

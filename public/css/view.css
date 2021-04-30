@@ -1,0 +1,144 @@
+/* view.html */
+/* 表紙セクション */
+body {
+  margin: 100px
+    auto;
+  width: 90%;
+}
+.view-container {
+  width: 100%;
+  position: relative;
+}
+.view__area {
+  width: 100%;
+  height: 640px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.view__text-contents,
+.view__img-contents {
+  border: solid
+    1px;
+  width: 50%;
+  height: 600px;
+  background-color: olive;
+}
+.view__img-contents {
+  background-color: rgb(
+    184,
+    71,
+    71
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.contents__img {
+  width: 60%;
+  height: 50%;
+  background-color: white;
+  border: solid
+    1px;
+}
+.contents__titele
+  span
+  p {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.contents__titele
+  span
+  p:nth-child(1) {
+  margin-bottom: 0;
+}
+.contents__titele
+  span
+  p:nth-child(2) {
+  margin: 0;
+}
+
+/* ストーリーセクション */
+.view__img-contents__main {
+  background-color: bisque;
+}
+.contents__back {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+.view__text-contents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 背表紙セクション */
+.contents__back
+  a {
+  color: black;
+  text-decoration: none;
+  height: 100px;
+  width: 100px;
+  border: solid
+    1px;
+  border-radius: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.next-container {
+  background-image: url("../img/next.png");
+  background-position: center
+    center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 50px;
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+.next-container:hover {
+  background-image: url("../img/next_hover.png");
+  background-position: center
+    center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 50px;
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+.back-container {
+  background-image: url("../img/back.png");
+  background-position: center
+    center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 50px;
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+.back-container:hover {
+  background-image: url("../img/back_hover.png");
+  background-position: center
+    center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 50px;
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+
+.p2 {
+  background-color: orange;
+  background-image: url("../testImg/image2.jpeg");
+}

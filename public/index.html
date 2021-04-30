@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/edit.css" />
+  <link rel="stylesheet" href="./css/view.css" />
+
+  <title>Edit Menu story</title>
+</head>
+
+<body>
+  <!-- <header>header</header> -->
+  <main>
+    <section class="view-container" id="edit_story">
+      <!-- <div class="view__area" id="edit_turn_page"> -->
+      <div class="view__area" id="flipbook">
+        <!-- <div class="back-container"></div> -->
+        <div class="view__img-contents" id="first_page">
+          <img src="" alt="" id="page0" />
+          <div class="contents__titele">
+            <span>
+              <p>Musume's</p>
+              <p>Story</p>
+            </span>
+          </div>
+        </div>
+        <div class="view__text-contents" id="txt1">
+          <p>産まれてきてくれてありがとう。</p>
+        </div>
+        <div class="view__img-contents__main">
+          <img src="" alt="" id="page1" />
+        </div>
+        <!--  -->
+        <div class="view__text-contents" id="txt2">
+          <p>妊娠中はつわりがひどくて本当に大変だった</p>
+        </div>
+        <div class="view__img-contents__main">
+          <img src="" alt="" id="page2" />
+        </div>
+        <!--  -->
+        <div class="view__text-contents" id="txt3">
+          <p>君が産まれたことで、私たちは本当の家族になった。</p>
+        </div>
+        <div class="view__img-contents__main">
+          <img src="" alt="" id="page3" />
+        </div>
+        <!--  -->
+        <div class="view__text-contents" id="txt4">
+          <p>いつもやんちゃで手を焼くけど</p>
+        </div>
+        <div class="view__img-contents__main">
+          <img src="" alt="" id="page4" />
+        </div>
+        <!--  -->
+        <div class="view__text-contents" id="txt5">
+          <p>一緒にいることが嬉しい。</p>
+        </div>
+        <div class="view__img-contents__main">
+          <img src="" alt="" id="page5" />
+        </div>
+        <!-- <div class="next-container"></div> -->
+        <div class="view__img-contents">
+          <img src="" alt="" id="page6" class="lastPic" />
+          <div class="contents__title">
+            <span>
+              <p>To Be</p>
+              <p>Continued...</p>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="line"></div>
+    <div class="edit-menu-container">
+      <!-- <div class="edit-menu__title">
+          <a href="view.html">編集終了</a>
+        </div> -->
+      <!-- <div class="edit-menu__title">
+          <a href="editStory.html">ストーリーを編集</a>
+        </div> -->
+      <!-- <div class="edit-menu__upload-img"> -->
+      <!-- <div> -->
+      <!-- 写真アップロード -->
+      <!-- <form autocomplete="off"> -->
+      <!-- <div class="edit-menu__upload-img"> -->
+      <!-- <a href="">写真をアップロード</a> -->
+      <!-- <input
+              type="file"
+              id="fileup"
+              multiple
+              accept="image/*"
+              value="写真をアップロード!!"
+              class="edit-menu__upload-img"
+            /> -->
+      <label for="fileup" class="edit-menu__upload-img">
+        <input type="file" id="fileup" accept="image/*" value="写真をアップロード!!" style="display: none" />
+        <p>写真をアップロード</p>
+      </label>
+      <!-- <input type="submit" id="fileup" value="写真をアップロード!!" /> -->
+      <!-- </div> -->
+      <!-- </form> -->
+      <!-- </div> -->
+      <!-- <div class="edit-menu__page-edit">
+          <div class="edit-menu__page-edit__contents">
+            <p>ページを追加</p>
+          </div>
+          <div class="edit-menu__page-edit__contents">
+            <p>ページを削除</p>
+          </div>
+        </div> -->
+    </div>
+
+    <script type="text/javascript">
+      let nowpage;
+    </script>
+    <script src="./js/jquery-2.1.3.min.js"></script>
+    <script src="./js/turn.min.js"></script>
+    <script src="./js/edit_my-turn.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase.js"></script>
+    <!-- <script src="js/imgupload.js"></script> -->
+    <script src="js/imgupload_id.js"></script>
+    <!-- <script src="js/page_add-delete.js"></script> -->
+
+    <!-- deployで使う.localではエラー起きるが普通に使える -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/8.4.1/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+  </main>
+  <!-- <footer>footer</footer> -->
+</body>
+
+</html>

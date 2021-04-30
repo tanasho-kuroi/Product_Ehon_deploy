@@ -1,0 +1,19 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "prettier.printWidth": 100,
+  "prettier.trailingComma": "es5",
+  "prettier.tabWidth": 2,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.endOfLine": "lf",
+  "prettier.usetabs": true,
+  "prettier.htmlWhitespaceSensitivity": "css"
+
+  // Enable per-language
+  // "[javascript]": {
+  //     "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // }
+}
