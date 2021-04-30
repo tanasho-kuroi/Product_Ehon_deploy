@@ -5,7 +5,7 @@ $(function () {
   // $('#edit_turn_page').turn({
   $('#flipbook').turn({
     elevation: 30,
-    duration: 1000,
+    duration: 1700,
     gradients: true,
     autoCenter: false,
   });
