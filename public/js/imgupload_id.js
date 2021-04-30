@@ -23,6 +23,7 @@ let blob;
 let idName; //写真をUPするHTMLのID名
 let upPage; //写真をアップするページ(数)
 let imgSampleR; //firebase上の画像URL
+let uploadRef;
 let readMaxPage = 0; //読み込んだページのMax値。これ以下のページは読み込みしない(２重読み込み防止)。
 let totalPageValue; //HTMLに登録したページ数の最大値。turn.min.jsから情報引っ張ってくる
 
@@ -48,20 +49,21 @@ const getLocalStoragePath = function (idName) {
 };
 
 ///////////  画像アップロード  /////////////
-const imgUploadBook = async function (upPage, file_name) {
-  uploadRef = storage.ref(`${upPage}`).child(file_name);
+const imgUploadBook = async function (uploadRef) {
   await uploadRef //時間がかかる処理！！
     .getDownloadURL()
     .then((url) => {
       //HTMLに表示
       console.log(url);
       imgSampleR.src = url;
+
+      // imgSampleR.style.width = 100 + '%';
+      // imgSampleR.style.height = 90 + '%';
+      //
+      // 元の縦横比でやろうとした
       // var orgWidth = imgSampleR.width; // 元の横幅を保存
       // var orgHeight = imgSampleR.height; // 元の高さを保存
-
-      imgSampleR.style.width = 420 + 'px';
       // imgSample.height = orgHeight * (imgSample.width / orgWidth); //縦横比維持
-      // 元の縦横比でやろうとした
     })
     .catch(function (error) {
       // Handle any errors
@@ -86,7 +88,9 @@ flipBook.addEventListener('click', (e, page) => {
       console.log(file_name);
 
       // 画像アップロード
-      imgUploadBook(upPage, file_name);
+      // await imgUploadBook(upPage, file_nameR);
+      uploadRef = storage.ref(`${upPage}`).child(file_name);
+      imgUploadBook(uploadRef);
 
       readMaxPage = upPage; //readMaxPageの更新
     }
@@ -95,8 +99,9 @@ flipBook.addEventListener('click', (e, page) => {
 
 //
 //
+//
 
-//////////////// ページ読み込みの際に画像DL ///////////////
+//////////////// Webページ読み込みの際に画像DL ///////////////
 
 window.onload = async () => {
   //htmlロード完了したらストレージの画像を表示してみる
@@ -111,7 +116,9 @@ window.onload = async () => {
 
     // 画像アップロード
     // let imgUPfin;
-    await imgUploadBook(upPage, file_nameR);
+    // await imgUploadBook(upPage, file_nameR);
+    uploadRef = storage.ref(`${upPage}`).child(file_name);
+    await imgUploadBook(uploadRef);
 
     if (upPage > readMaxPage) {
       readMaxPage = upPage;
@@ -121,51 +128,49 @@ window.onload = async () => {
 
 //
 //
-//////////////// fileUpが変更された際に処理開始 ///////////////
+//
+//
+//////////////// 画像アップロード：fileUpが変更された際に処理開始 ///////////////
 fileUp.addEventListener('change', (e) => {
   // e.preventDefault(); //ページ遷移をなくす
-  nowPage = $('#flipbook').turn('page'); //page数の取得
 
+  // Page数とファイルアップする場所の取得
+  nowPage = $('#flipbook').turn('page'); //page数の取得
   upPage = Math.floor(nowPage / 2);
-  idName = 'page' + upPage; //page数をid名に反映
-  console.log(idName);
-  imgSampleR = document.getElementById(idName);
+  let imgSampleRead = getPicPath(upPage); //写真アップする場所のHTML情報入手
+
+  // ファイル名取得
   var file = e.target.files;
   file_name = file[0].name; //file name取得
   blob = new Blob(file, { type: 'image/jpeg' }); //blob形式
   console.warn(blob);
 
+  //
   // localstrageにPage数とファイル名を保存(その前に、同じPage数のもの削除)
   const dataPath = {
     pageLocal: upPage,
     fileLocal: file_name,
   };
   const jsonData = JSON.stringify(dataPath); //配列をJSONdata(文字列)変換
-  localStorage.removeItem(idName); // localstorageに既に保存済みの、同じPage数のPath削除
+  localStorage.removeItem(idName); // localstorageに既に保存済みの、同じPageのPath削除
   localStorage.setItem(idName, jsonData); // localstorageに保存
 
+  //
   // storageのarea_imagesへの参照を定義
-  let uploadRef = storage.ref(`${upPage}`).child(file_name);
-  uploadRef.put(blob).then((snapshot) => {
-    console.log(snapshot.state);
-    // URL取得
-    uploadRef
-      .getDownloadURL()
-      .then((url) => {
-        //HTMLに表示
-        imgSampleR.src = url;
-        // var orgWidth = imgSample.width; // 元の横幅を保存
-        // var orgHeight = imgSample.height; // 元の高さを保存
+  uploadRef = storage.ref(`${upPage}`).child(file_name); // URL取得
+  console.log(uploadRef);
 
-        imgSampleR.style.width = 520 + 'px';
-        // imgSample.height = orgHeight * (imgSample.width / orgWidth); //縦横比維持
-        // 元の縦横比でやろうとしたけど、、、逆におかしくなる？
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  // put() は、JavaScript の File API や Blob API 経由でファイルを取得し、Cloud Storage にアップロードする
+  uploadRef.put(blob).then(function (snapshot) {
+    //↑この時点でcloud storage にはアップロードしている。
+    console.log(uploadRef);
+    console.log(snapshot.state);
+    //
+    // HTML表示
+    imgUploadBook(uploadRef);
   });
 
+  //
   // value リセットする
   file_name = '';
   blob = '';

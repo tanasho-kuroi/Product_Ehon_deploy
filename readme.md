@@ -1,6 +1,6 @@
 # ルーツを記録する絵本アプリ
 
-## firebase 使用。API key は別途連絡
+### firebase 使用。API key は別途連絡
 
 ## プロダクトの紹介
 
