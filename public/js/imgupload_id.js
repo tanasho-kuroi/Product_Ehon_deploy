@@ -10,6 +10,8 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+//
+
 // grobal variable
 // set instance
 const form = document.querySelector('form');
@@ -45,6 +47,8 @@ const getLocalStoragePath = function (idName) {
     data = JSON.parse(jsonData);
     // console.log(data);
     file_name = data.fileLocal;
+  } else {
+    file_name = null;
   }
   return file_name;
 };
@@ -117,8 +121,12 @@ window.onload = async () => {
     // 画像アップロード
     // let imgUPfin;
     // await imgUploadBook(upPage, file_nameR);
-    uploadRef = storage.ref(`${upPage}`).child(file_name);
-    await imgUploadBook(uploadRef);
+    if (file_nameR) {
+      uploadRef = storage.ref(`${upPage}`).child(file_name);
+      await imgUploadBook(uploadRef);
+    } else {
+      // file_name = null;
+    }
 
     if (upPage > readMaxPage) {
       readMaxPage = upPage;
