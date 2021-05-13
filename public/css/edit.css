@@ -1,7 +1,6 @@
 /* editMenu */
 body {
-  margin: 100
-    auto;
+  margin: 100 auto;
   width: 90%;
 }
 .edit-container {
@@ -18,14 +17,8 @@ body {
 .edit-preview__contents {
   width: 50%;
   height: 340px;
-  padding: 50px
-    0 50px
-    0;
-  background-color: rgb(
-    184,
-    71,
-    71
-  );
+  padding: 50px 0 50px 0;
+  background-color: rgb(184, 71, 71);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,32 +28,23 @@ body {
   width: 50%;
   height: 100%;
   background-color: white;
-  border: solid
-    1px;
+  border: solid 1px;
 }
-.contents__title
-  span
-  p {
+.contents__title span p {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
 }
-.contents__title
-  span
-  p:nth-child(1) {
+.contents__title span p:nth-child(1) {
   margin-bottom: 0;
 }
-.contents__title
-  span
-  p:nth-child(2) {
+.contents__title span p:nth-child(2) {
   margin: 0;
 }
 .line {
   width: 100%;
   height: 5px;
-  margin: 20px
-    0 20px
-    0;
+  margin: 20px 0 20px 0;
   background-color: black;
 }
 .edit-menu-container {
@@ -108,11 +92,7 @@ body {
   display: inline-block;
   border-radius: 20%;
   font-size: 18pt;
-  color: rgb(
-    4,
-    4,
-    116
-  );
+  color: rgb(4, 4, 116);
   display: flex;
   /* text-align: center; */
   justify-content: center;
@@ -121,13 +101,8 @@ body {
   background: skyblue;
   line-height: 1em; /* 1行の高さ  */
   transition: 0.3s; /* なめらか変化 */
-  box-shadow: 6px
-    6px
-    3px
-    #666666; /* 影の設定 */
-  border: 2px
-    solid
-    #000066; /* 枠の指定 */
+  box-shadow: 6px 6px 3px #666666; /* 影の設定 */
+  border: 2px solid #000066; /* 枠の指定 */
   width: 300px;
   height: 60px;
 }
@@ -143,36 +118,15 @@ body {
   align-items: center;
 }
 .edit-menu__page-edit__contents:nth-child(1) {
-  background-color: rgb(
-    250,
-    247,
-    157
-  );
-  border: 1px
-    solid
-    rgb(
-      250,
-      247,
-      157
-    );
+  background-color: rgb(250, 247, 157);
+  border: 1px solid rgb(250, 247, 157);
   margin-bottom: 10px;
 }
 .edit-menu__page-edit__contents:nth-child(2) {
-  background-color: rgb(
-    157,
-    197,
-    250
-  );
-  border: 1px
-    solid
-    rgb(
-      157,
-      197,
-      250
-    );
+  background-color: rgb(157, 197, 250);
+  border: 1px solid rgb(157, 197, 250);
 }
-.edit-menu__page-edit__contents
-  p {
+.edit-menu__page-edit__contents p {
   margin: 0;
 }
 /* 編集ストーリーセクション */
@@ -180,11 +134,9 @@ body {
 .edit-preview__story {
   width: 50%;
   height: 440px;
-  border: 1px
-    solid;
+  border: 1px solid;
 }
-.edit-preview__book
-  .contents__img {
+.edit-preview__book .contents__img {
   width: 100%;
   height: 100%;
   border: none;
@@ -199,23 +151,20 @@ body {
   display: flex;
   justify-content: center;
 }
-.contents__back
-  a {
+.contents__back a {
   color: black;
   text-decoration: none;
   height: 100px;
   width: 100px;
-  border: solid
-    1px;
+  border: solid 1px;
   border-radius: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .next-container {
-  background-image: url("../img/next.png");
-  background-position: center
-    center;
+  background-image: url('../img/next.png');
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 75%;
@@ -225,9 +174,8 @@ body {
   right: 0;
 }
 .next-container:hover {
-  background-image: url("../img/next_hover.png");
-  background-position: center
-    center;
+  background-image: url('../img/next_hover.png');
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 75%;
@@ -237,9 +185,8 @@ body {
   right: 0;
 }
 .back-container {
-  background-image: url("../img/back.png");
-  background-position: center
-    center;
+  background-image: url('../img/back.png');
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 75%;
@@ -249,9 +196,8 @@ body {
   left: 0;
 }
 .back-container:hover {
-  background-image: url("../img/back_hover.png");
-  background-position: center
-    center;
+  background-image: url('../img/back_hover.png');
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 75%;
@@ -273,61 +219,33 @@ body {
 .input-container {
   width: 45%;
   height: 440px;
-  border: 1px
-    solid
-    rgba(
-      53,
-      252,
-      152,
-      0.938
-    );
+  border: 1px solid rgba(53, 252, 152, 0.938);
   border-radius: 30%;
-  background-color: rgba(
-    53,
-    252,
-    152,
-    0.938
-  );
+  background-color: rgba(53, 252, 152, 0.938);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.input__title-container
-  p,
-.input__fontsize-contaier
-  p {
+.input__title-container p,
+.input__fontsize-contaier p {
   text-align: center;
   font-size: 1.5rem;
 }
-.input__fontsize-contaier
-  input {
+.input__fontsize-contaier input {
   height: 30px;
 }
 .edit-submit {
   height: 90px;
   width: 250px;
-  border: 1px
-    solid
-    rgba(
-      53,
-      252,
-      152,
-      0.938
-    );
+  border: 1px solid rgba(53, 252, 152, 0.938);
   border-radius: 50%;
-  background-color: rgba(
-    53,
-    252,
-    152,
-    0.938
-  );
+  background-color: rgba(53, 252, 152, 0.938);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.edit-submit
-  a {
+.edit-submit a {
   color: black;
   text-decoration: none;
 }

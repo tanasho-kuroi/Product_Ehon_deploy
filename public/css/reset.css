@@ -115,7 +115,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 
@@ -148,8 +148,7 @@ del {
 
 abbr[title],
 dfn[title] {
-  border-bottom: 1px
-    dotted;
+  border-bottom: 1px dotted;
   cursor: help;
 }
 
@@ -163,11 +162,8 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px
-    solid
-    #cccccc;
-  margin: 1em
-    0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
   padding: 0;
 }
 
