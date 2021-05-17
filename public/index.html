@@ -17,59 +17,40 @@
         <!-- <div class="view__area" id="edit_turn_page"> -->
         <div class="view__area" id="flipbook">
           <!-- <div class="back-container"></div> -->
-          <div class="view__img-contents" id="first_page">
+          <div class="view__img-contents p1" id="first_page">
             <img src="" alt="" id="page0" class="contents__firstPic" />
             <div class="contents__title">
-              <span>
-                <p>Musume's</p>
-                <p>Story</p>
+              <span id="txt0">
+                <p></p>
               </span>
             </div>
           </div>
-          <div class="view__text-contents" id="txt1">
-            <p class="view__text-contents__p">産まれてきてくれてありがとう。</p>
-          </div>
-          <div class="view__img-contents__main">
-            <img src="" alt="" id="page1" class="pagePic" />
-          </div>
+          <!-- <div class="view__text-contents" id="txt1">
+              <p class="view__text-contents__p"></p>
+            </div>
+            <div class="view__img-contents__main">
+              <img src="" alt="" id="page1" class="pagePic" />
+            </div>
 
-          <div class="view__text-contents" id="txt2">
-            <p class="view__text-contents__p">妊娠中はつわりがひどくて本当に大変だった。</p>
-          </div>
-          <div class="view__img-contents__main" style="width: 200px; height: 200px">
-            <img src="" alt="" id="page2" class="pagePic" />
-          </div>
+            <div class="view__text-contents" id="txt2">
+              <p class="view__text-contents__p"></p>
+            </div>
+            <div class="view__img-contents__main" style="width: 200px; height: 200px">
+              <img src="" alt="" id="page2" class="pagePic" />
+            </div>
 
-          <div class="view__text-contents" id="txt3">
-            <p class="view__text-contents__p">君が産まれたことで、私たちは本当の家族になった。</p>
-          </div>
-          <div class="view__img-contents__main">
-            <img src="" alt="" id="page3" class="pagePic" />
-          </div>
-
-          <div class="view__text-contents" id="txt4">
-            <p class="view__text-contents__p">いつもやんちゃで手を焼くけど...</p>
-          </div>
-          <div class="view__img-contents__main">
-            <img src="" alt="" id="page4" class="pagePic" />
-          </div>
-
-          <div class="view__text-contents" id="txt5">
-            <p class="view__text-contents__p">こうして一緒にいることが嬉しい。</p>
-          </div>
-          <div class="view__img-contents__main">
-            <img src="" alt="" id="page5" class="pagePic" />
-          </div>
-          -->
-
-          <!-- <div class="next-container"></div> -->
+            <div class="view__text-contents" id="txt3">
+              <p class="view__text-contents__p"></p>
+            </div>
+            <div class="view__img-contents__main">
+              <img src="" alt="" id="page3" class="pagePic" />
+            </div> -->
 
           <div class="view__img-contents">
-            <img src="" alt="" id="lastPage" class="contents__lastPic" />
-            <div class="contents__title">
+            <!-- <img src="" alt="" id="lastPage" class="contents__lastPic" /> -->
+            <div class="contents__fin">
               <span>
-                <p>To Be</p>
-                <p>Continued...</p>
+                <p>Fin</p>
               </span>
             </div>
           </div>
@@ -122,43 +103,49 @@
           </li>
         </ul>
         <div class="edit-menu__page-edit">
-          <!-- <div class="edit-menu__page-edit__contents" id="edit-menu__addPage"> -->
-          <!-- <p>ページを追加</p> -->
-          <!-- <input
+          <div class="edit-menu__page-edit__contents" id="edit-menu__addPage">
+            <!-- <p>ページを追加</p> -->
+            <!-- <input
               type="button"
               id="edit-menu__addPage"
               value="ページを追加"
             /> -->
-          <button id="edit-menu__addPage" class="edit-menu__page-edit__contents">
-            ページを追加
-          </button>
-          <!-- </div> -->
-          <!-- <div class="edit-menu__page-edit__contents">
-            <p>ページを削除</p>
-          </div> -->
+            <button id="edit-menu__addPageButton" class="edit-menu__page-edit__contents">
+              ページを追加
+            </button>
+          </div>
+          <div id="edit-menu__resetPage" class="edit-menu__page-edit__contents">
+            <p>ページをリセット</p>
+          </div>
+        </div>
+        <div class="edit-menu__page-edit">
+          <div class="ehonChoiceClass edit-menu__choice edit-menu__ehonChoice">
+            <p>絵本1</p>
+          </div>
+          <div class="ehonChoiceClass edit-menu__choice edit-menu__ehonChoice">
+            <p>絵本2</p>
+          </div>
         </div>
       </div>
 
-      <script type="text/javascript">
+      <!-- <script type="text/javascript">
         let nowpage;
-      </script>
+      </script> -->
       <script src="./js/jquery-2.1.3.min.js"></script>
       <script src="./js/turn.min.js"></script>
       <!-- <script src="./js/edit_my-turn.js"></script> -->
-
-      <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase.js"></script>
-      <!-- <script src="js/imgupload.js"></script> -->
-      <script src="js/imgupload_id.js"></script>
-      <script src="js/txtupload.js"></script>
-      <!-- <script src="js/page_add-delete.js"></script> -->
-
       <!-- deployで使う.localではエラー起きるが普通に使える -->
       <!-- The core Firebase JS SDK is always required and must be listed first -->
       <script src="/__/firebase/8.4.1/firebase-app.js"></script>
       <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
       <!-- Initialize Firebase -->
-      <script src="/__/firebase/init.js"></script>
+
+      <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase.js"></script>
+      <!-- <script src="js/imgupload.js"></script> -->
+      <script src="js/imgupload_id.js"></script>
+      <script src="js/txtupload.js"></script>
+      <!-- <script src="js/page_add-delete.js"></script> -->
     </main>
     <!-- <footer>footer</footer> -->
   </body>

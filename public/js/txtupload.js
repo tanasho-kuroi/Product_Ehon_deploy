@@ -9,55 +9,114 @@
 // };
 // Initialize Firebase
 // firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore().collection('ehonText'); //ehonTextという名前のコレクションがdbという名前で定義された感じ
+var db = firebase.firestore().collection('EhonProduct'); //EhonProductという名前のコレクションがdbという名前で定義された感じ
+// var thisEhonRef = db.doc('Mehon'); //絵本の指定(いずれ動的にする)
+// var thisPage;
+// var thisPageDoc;//imguploadにて定義済み
+var colPage;
+var col_docPage;
+// var messageRef = db.collection('rooms').doc('roomA').collection('messages').doc('message1');
 
 // const txtUploadBook = async function () {
-const txtUploadFireStore = function () {
+
+//データ追加処理
+const txtMakeFireStore = async function () {
   nowPage = $('#flipbook').turn('page'); //page数の取得
   upPage = Math.floor(nowPage / 2); //page数の取得
   var txtStory = $('#textBox').val();
 
+  colPage = 'Page' + upPage;
+  col_docPage = 'docPage' + upPage;
+  thisPage = thisEhonRef.collection(colPage).doc(col_docPage);
+
   const data = {
-    Page: upPage,
     txt: txtStory, //Box内の値を取得
     // txt: $('#textBox').val(),
   };
   console.log(data);
-  db.add(data);
+  await thisPage.set(data);
+  // await thisPage.add(data);
 
   return;
 };
+
+//
+//
+// txtの更新 or 追加
+const txtUpdateFireStore = async function () {
+  nowPage = $('#flipbook').turn('page'); //page数の取得
+  upPage = Math.floor(nowPage / 2); //page数の取得
+  var txtStory = $('#textBox').val();
+  // コレクション、ドキュメント名の指定を動的に。
+  colPage = 'Page' + upPage;
+  col_docPage = 'docPage' + upPage;
+  thisPageDoc = thisEhonRef.collection(colPage).doc(col_docPage);
+  const data = {
+    txt: txtStory, //Box内の値を取得
+    // txt: $('#textBox').val(),
+  };
+  //
+  //
+  await thisPageDoc.get().then(async (doc) => {
+    if (doc.exists) {
+      console.log(data);
+      await thisPageDoc
+        .update(data)
+        .then(() => {
+          console.log('Document successfully updated!');
+        })
+        .catch((error) => {
+          // The document probably doesn't exist.
+          console.error('Error updating document: ', error);
+        });
+    } else {
+      await txtMakeFireStore(); //Pageのデータがない時は、追加Funcrtionへ
+      // doc.data() will be undefined in this case
+    }
+  });
+
+  return;
+};
+
+// 改行は優先順位低い
+//
+//
+//
+// firestoreからデータ引き出し
 const txtDownloadFireStore = async function (upPage) {
   const dataArray = []; //必要なデータだけが入った配列(リロードしても最初から入っている？)
+  // thisPage = thisEhonRef.collection('Page1');
+  colPage = 'Page' + upPage;
+  col_docPage = 'docPage' + upPage;
 
-  //
-  // 更新処理にする！！
-  // 更新の流れは？
-  // IDを持ってきて →IDが一致するものの、どの要素を更新するか →更新
-  // そのページのものがあるかどうかの条件分岐は要るかも(いらないかも)
-  // もし、ドキュメントに存在しないデータを指定した場合、データが追記されます。
-  // addを更新に変えるだけでいけるかも？
+  thisPageDoc = thisEhonRef.collection(colPage).doc(col_docPage);
 
-  // 改行は優先順位低い
-  //
-  // txtDownloadFireStore(upPage);
-  await db
-    .where('Page', '==', upPage)
+  await thisPageDoc
     .get()
-    .then(function (querySnapshot) {
-      querySnapshot.docs.forEach(function (doc) {
-        //querySnapshot.docsの要素数だけループ
+    .then((doc) => {
+      if (doc.exists) {
+        console.log('Document data:', doc.data());
+
         const data = {
           id: doc.id, //自動で指定しているドキュメントのID
           data: doc.data(), //上記IDのドキュメントの中身
+          // id: thisPage.doc('docPage1').id, //自動で指定しているドキュメントのID
+          // data: thisPage.doc('docPage1').data(), //上記IDのドキュメントの中身
         };
 
         dataArray.push(data); //dataArrayの末尾にdata追加(dataが一つのドキュメント情報、dataArrayが全てを入れた配列)
         console.log(data);
         console.log(dataArray);
-      });
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+      }
+    })
+    .catch((error) => {
+      console.log('Error getting document:', error);
     });
 
+  // firestoreから引き出したデータをHTML表示
   const tagArray = [];
   var txtIDup = 'txt' + upPage;
   console.log(txtIDup);
@@ -78,7 +137,8 @@ const txtDownloadFireStore = async function (upPage) {
 
 // 送信ボタンクリック時にデータを送信する処理
 $('#send').on('click', async function () {
-  await txtUploadFireStore();
+  // await txtMakeFireStore();
+  await txtUpdateFireStore(upPage);
   await txtDownloadFireStore(upPage);
 });
 

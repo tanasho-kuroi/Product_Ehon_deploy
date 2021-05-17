@@ -60,12 +60,20 @@ body {
   justify-content: space-around;
   display: flex;
 }
-.contents__title span p {
+
+.contents__fin {
+  height: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+.contents__fin span p {
   align-items: center;
   font-size: 2rem;
   font-weight: bold;
 }
-.contents__title span p:nth-child(1) {
+.contents__fin span p:nth-child(1) {
   margin-bottom: 0;
 }
 .contents__title span p:nth-child(2) {

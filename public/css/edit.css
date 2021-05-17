@@ -116,6 +116,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .edit-menu__page-edit__contents:nth-child(1) {
   background-color: rgb(250, 247, 157);
@@ -125,6 +126,20 @@ body {
 .edit-menu__page-edit__contents:nth-child(2) {
   background-color: rgb(157, 197, 250);
   border: 1px solid rgb(157, 197, 250);
+}
+
+.edit-menu__ehonChoice {
+  height: 40px;
+  width: 200px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.edit-menu__choice {
+  background-color: rgb(234, 157, 250);
+  border: 1px solid rgb(234, 157, 250);
 }
 .edit-menu__page-edit__contents p {
   margin: 0;
