@@ -156,6 +156,7 @@ const URLDownloadFireStore = async function (upPage) {
 //
 ///////////  画像ダウンロード＆表示  /////////////
 const imgUploadBook = async function (uploadRef) {
+  console.log(imgSampleRead);
   await uploadRef //時間がかかる処理！！
     .getDownloadURL()
     .then((url) => {
@@ -420,8 +421,6 @@ fileUp.addEventListener('change', async (e) => {
   upPage = Math.floor(nowPage / 2);
   console.log('upPage:' + upPage);
 
-  // let imgSampleReadead = getPicPath(upPage); //写真アップする場所のHTML情報入手
-
   // ファイル名取得
   var file = e.target.files;
   console.log(file[0].name);
@@ -464,17 +463,22 @@ fileUp.addEventListener('change', async (e) => {
   });
 
   //
-  //
-  // storageのarea_imagesへの参照を定義(Local Storage)
-  uploadRef = storage.ref(`${upPage}`).child(file_name); // URL取得
+  let file_nameRead = file_name;
+
+  imgSampleRead = getPicPath(upPage); //写真アップする場所のHTML情報入手
+  // firebase storageのarea_imagesへの参照を定義(Local Storage)
+  uploadRef = storage.ref(`${upPage}`).child(file_nameRead); // URL取得
   console.log(uploadRef);
+
   // put() は、JavaScript の File API や Blob API 経由でファイルを取得し、Cloud Storage にアップロードする
-  await uploadRef.put(blob).then(function (snapshot) {
+  await uploadRef.put(blob).then(async function (snapshot) {
     //↑この時点でcloud storage にはアップロードしている。
 
+    //  開いているPageから写真のPath取得
     // HTML表示
-    imgUploadBook(uploadRef);
     console.log('uploadRef:' + uploadRef);
+
+    await imgUploadBook(uploadRef);
 
     URLDownloadFireStore(upPage);
     // console.log('upPage:' + upPage);
