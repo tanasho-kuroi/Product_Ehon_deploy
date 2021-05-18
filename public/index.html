@@ -118,14 +118,18 @@
             <p>ページをリセット</p>
           </div>
         </div>
+        <!-- 絵本を選ぶ -->
         <div class="edit-menu__page-edit">
-          <div class="ehonChoiceClass edit-menu__choice edit-menu__ehonChoice">
-            <p>絵本1</p>
-          </div>
-          <div class="ehonChoiceClass edit-menu__choice edit-menu__ehonChoice">
-            <p>絵本2</p>
-          </div>
+          <label for="ehon-select_label">絵本を選ぶ</label>
+          <select name="" id="ehon-select" onchange="EhonSelectEvent()">
+            <!-- <select name="" id="ehon-select"> -->
+            <option value="">-- 絵本を選んでください --</option>
+            <!-- <option value="Dehon1">1</option>
+            <option value="Dehon2">2</option>
+            <option value="Dehon3">3</option> -->
+          </select>
         </div>
+        <!-- 絵本の新規作成 -->
         <div class="edit-menu__page-edit">
           <div
             id="edit-menu__ehon_add"

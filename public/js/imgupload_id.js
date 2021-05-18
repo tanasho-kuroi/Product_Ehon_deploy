@@ -13,15 +13,6 @@ let db = firebase.firestore().collection('EhonProduct'); //EhonProductという�
 // db.docs.forEach((element) => {
 //   console.log(element);
 // });
-db.get().then(function (querySnapshot) {
-  querySnapshot.forEach(function (doc) {
-    console.log(doc.id, ' => ', doc.data());
-  });
-});
-// forEach は配列に対して
-// Document名の配列を作れるか
-// querySnapshot 配列になって、
-// 絵本の名前を引っ張ってくる一文を追加。
 
 let EhonTitle;
 let EhonTotal;
@@ -39,12 +30,13 @@ const EhonNameDLFireStore = async function () {
         const data = {
           data: doc.data(), //上記IDのドキュメントの中身
         };
-        EhonTitle = data.data.LastEhonName;
+        // EhonTitle = data.data.LastEhonName;
         EhonTotal = data.data.EhonTotal;
-        EhonDoc = 'Dehon' + EhonTotal;
+        EhonDoc = data.data.LastEhonName;
+        thisEhonRef = db.doc(EhonDoc); //絵本の指定(動的)
+
         console.log('EhonTitle =' + EhonTitle);
         console.log('EhonTotal =' + EhonTotal);
-        thisEhonRef = db.doc(EhonDoc); //絵本の指定(動的)
       }
     });
 };
@@ -62,6 +54,7 @@ const editresetPage = document.getElementById('edit-menu__resetPage');
 const ehonChoiceBottun = document.getElementsByClassName('ehonChoiceClass');
 const ehonAddBottun = document.getElementById('edit-menu__ehon_add');
 const MakeEhonTitle = document.getElementById('MakeEhonTitle');
+const EhonSelect = document.getElementById('ehon-select');
 MakeEhonTitle.style.display = 'none';
 
 // const ehonChoiceBottun = document.getElementById('ehonChoiceClass');
@@ -135,6 +128,10 @@ $(function () {
 //
 //
 //
+//
+// location.reload();
+
+// EhonSelect.onchange = EhonSelectEvent();
 
 ///////////  開いているPageから写真のPath取得  /////////////
 const getPicPath = function (upPage) {
@@ -346,7 +343,7 @@ async function addPage(nowPage) {
   // .turn('pages', $('#flipbook').turn('pages'));
 }
 
-//////////////// 絵本の名前取得 ///////////////
+//////////////// 絵本の名前取得(使っていない？？？) ///////////////
 
 const EhonNameFireStore = async function (upPage) {
   const dataArray = []; //必要なデータだけが入った配列(リロードしても最初から入っている？)
@@ -449,6 +446,26 @@ window.onload = async () => {
       readMaxPage = upPage;
     } //readMaxPageの更新
   }
+
+  // セレクタを作成する
+  db.get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      console.log(doc.id, ' => ', doc.data());
+      EhonDoc = doc.id;
+      EhonTitle = doc.data().EhonName;
+      // optionを増やす動作
+      $option = $('<option>', { value: EhonDoc, text: EhonTitle });
+      // // $option = $('<option>', { value: op_value, text: op_ehonName, selected: isSelected });
+      $('#ehon-select').append($option);
+      // EhonSelect.append($option);
+      // EhonDoc = EhonSelect.value;
+    });
+  });
+
+  // forEach は配列に対して
+  // Document名の配列を作れるか
+  // querySnapshot 配列になって、
+  // 絵本の名前を引っ張ってくる一文を追加。
 };
 
 //
@@ -563,30 +580,14 @@ editresetPage.addEventListener('click', (e, page) => {
   const dataTotalPage = {
     TotalPage: numberOfPages,
   };
-  thisEhonRef.set(dataTotalPage);
+  //
+  thisEhonRef.update(dataTotalPage);
 });
 // //
 //
 
 //
-//
-////////////////// 本の選択 ///////////////
 
-// for (let cB = 0; cB < ehonChoiceBottun.length; cB++) {
-//   // ehonChoiceBottun[].addEventListener('click', (e, page) => {
-//   //   EhonName = 'Mehon';
-//   //   console.log(EhonName);
-//   //   location.reload();
-//   // });
-//   ehonChoiceBottun[cB].addEventListener('click', function () {
-//     EhonName = 'Dehon' + cB;
-//     console.log(EhonName);
-//     location.reload();
-//   });
-// }
-// // //
-//
-//
 //
 /////////////////////////////////////////////////////
 //////////////// 本(Document)の新規作成 ///////////////
@@ -629,6 +630,7 @@ $('#MakeSend').on('click', async function () {
   }
   //
 
+  // EhonInfo
   let EhonDocUP = {
     LastEhonName: EhonDoc,
     EhonTotal: EhonTotal,
@@ -638,9 +640,29 @@ $('#MakeSend').on('click', async function () {
   await db.doc('EhonInfo').update(EhonDocUP);
   //
   //
+  // selectタグに新規絵本分のoptionを追加する
+  $option = $('<option>', { value: EhonTitle, text: EhonTitle });
+  // $option = $('<option>', { value: op_value, text: op_ehonName, selected: isSelected });
+  $('#ehon-select').append($option);
 
   console.log('絵本追加:' + EhonTitle);
   location.reload();
 });
 
-//
+/////////////////////////////////////////////////////
+//////////// 本(Document)の選択(select) //////////////
+/////////////////////////////////////////////////////
+
+async function EhonSelectEvent() {
+  EhonDoc = EhonSelect.value;
+  console.log('絵本選択 : ' + EhonDoc);
+
+  // EhonInfo
+  let EhonDocUP = {
+    LastEhonName: EhonDoc,
+    // EhonTotal: EhonTotal,//EhonTotalをいじると、新規作成の際におかしくなるので、そのままにする。
+  };
+  await db.doc('EhonInfo').update(EhonDocUP);
+
+  location.reload();
+}
