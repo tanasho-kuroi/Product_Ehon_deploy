@@ -9,11 +9,47 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore().collection('EhonProduct'); //EhonProductという名前のコレクションがdbという名前で定義された感じ
-var EhonName;
-EhonName = 'Mehon';
+let db = firebase.firestore().collection('EhonProduct'); //EhonProductという名前のコレクションがdbという名前で定義された感じ
+// db.docs.forEach((element) => {
+//   console.log(element);
+// });
+db.get().then(function (querySnapshot) {
+  querySnapshot.forEach(function (doc) {
+    console.log(doc.id, ' => ', doc.data());
+  });
+});
+// forEach は配列に対して
+// Document名の配列を作れるか
+// querySnapshot 配列になって、
+// 絵本の名前を引っ張ってくる一文を追加。
 
-var thisEhonRef = db.doc(EhonName); //絵本の指定(動的)
+let EhonTitle;
+let EhonTotal;
+let EhonDoc;
+//
+//
+const EhonNameDLFireStore = async function () {
+  await db
+    .doc('EhonInfo')
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        console.log('Document data:', doc.data());
+
+        const data = {
+          data: doc.data(), //上記IDのドキュメントの中身
+        };
+        EhonTitle = data.data.LastEhonName;
+        EhonTotal = data.data.EhonTotal;
+        EhonDoc = 'Dehon' + EhonTotal;
+        console.log('EhonTitle =' + EhonTitle);
+        console.log('EhonTotal =' + EhonTotal);
+        thisEhonRef = db.doc(EhonDoc); //絵本の指定(動的)
+      }
+    });
+};
+
+// let thisEhonRef = db.doc(EhonDoc); //絵本の指定(動的)
 
 //
 // grobal variable
@@ -24,6 +60,10 @@ const fileUp = document.getElementById('fileup');
 const editAddPage = document.getElementById('edit-menu__addPageButton');
 const editresetPage = document.getElementById('edit-menu__resetPage');
 const ehonChoiceBottun = document.getElementsByClassName('ehonChoiceClass');
+const ehonAddBottun = document.getElementById('edit-menu__ehon_add');
+const MakeEhonTitle = document.getElementById('MakeEhonTitle');
+MakeEhonTitle.style.display = 'none';
+
 // const ehonChoiceBottun = document.getElementById('ehonChoiceClass');
 const storage = firebase.storage(); //Cloud Storage
 const flipBook = document.getElementById('flipbook');
@@ -50,15 +90,15 @@ let thisPageDoc;
 //     // Create an element for this page
 //     upPage = Math.floor(page / 2);
 //     console.log('upPage=' + upPage);
-//     var txtID = 'txt' + upPage;
-//     var imgID = 'page' + upPage;
-//     var element_txt =
+//     let txtID = 'txt' + upPage;
+//     let imgID = 'page' + upPage;
+//     let element_txt =
 //       `<div class="view__text-contents" id="` +
 //       txtID +
 //       `">
 //       <p class="view__text-contents__p"></p>
 //     </div>`;
-//     var element_img =
+//     let element_img =
 //       `<div class="view__img-contents__main">
 //                   <img src="" alt="" id="` +
 //       imgID +
@@ -168,8 +208,8 @@ const imgUploadBook = async function (uploadRef) {
       // imgSampleRead.style.height = 90 + '%';
       //
       // 元の縦横比でやろうとした
-      // var orgWidth = imgSampleRead.width; // 元の横幅を保存
-      // var orgHeight = imgSampleRead.height; // 元の高さを保存
+      // let orgWidth = imgSampleRead.width; // 元の横幅を保存
+      // let orgHeight = imgSampleRead.height; // 元の高さを保存
       // imgSample.height = orgHeight * (imgSample.width / orgWidth); //縦横比維持
     })
     .catch(function (error) {
@@ -310,7 +350,7 @@ async function addPage(nowPage) {
 
 const EhonNameFireStore = async function (upPage) {
   const dataArray = []; //必要なデータだけが入った配列(リロードしても最初から入っている？)
-  // var thisEhonRef = db.doc(EhonName); //絵本の指定(動的)
+  // let thisEhonRef = db.doc(EhonName); //絵本の指定(動的)
 
   // thisPageDoc = thisEhonRef.collection(colPage).doc(col_docPage);
 
@@ -326,7 +366,7 @@ const EhonNameFireStore = async function (upPage) {
           // id: thisPage.doc('docPage1').id, //自動で指定しているドキュメントのID
           // data: thisPage.doc('docPage1').data(), //上記IDのドキュメントの中身
         };
-        EhonName = data.data.EhonName;
+        EhonTitle = data.data.EhonName;
         dataArray.push(data); //dataArrayの末尾にdata追加(dataが一つのドキュメント情報、dataArrayが全てを入れた配列)
         console.log(data);
         console.log(EhonName);
@@ -338,7 +378,7 @@ const EhonNameFireStore = async function (upPage) {
     .catch((error) => {
       console.log('Error getting document:', error);
     });
-  return EhonName;
+  return EhonTitle;
 };
 //
 //
@@ -347,7 +387,10 @@ const EhonNameFireStore = async function (upPage) {
 
 window.onload = async () => {
   // const EhonNameRead = await EhonNameFireStore();
-  // EhonName = 'Mehon';
+
+  await EhonNameDLFireStore();
+  MakeEhonTitle.style.display = 'none';
+  console.log('EhonDoc =' + EhonDoc);
 
   // $('#edit-menu__addPage').prop('disabled', true); //ページ追加ボタン無効(最初は表紙なので)
   $(editAddPage).prop('disabled', true); //ページ追加ボタン無効(最初は表紙なので)
@@ -357,7 +400,7 @@ window.onload = async () => {
   console.log(numberOfPages);
   numberOfPagesUP = numberOfPages / 2;
 
-  var lastPageClass = 'p' + numberOfPages;
+  let lastPageClass = 'p' + numberOfPages;
   await $('lastPage').addClass();
   // 表紙も背表紙も、ループの中で追加したい(HTMLで書いているのではなく)
   // 背表紙は、Total+1に追加するイメージで。
@@ -394,9 +437,9 @@ window.onload = async () => {
     }
 
     // txtアップロード
-    var tagArray = [];
-    var txtIDup = 'txt' + upPage;
-    var tag = `<p>${txtStoryRead}</p>`;
+    let tagArray = [];
+    let txtIDup = 'txt' + upPage;
+    let tag = `<p>${txtStoryRead}</p>`;
     tagArray.push(tag);
 
     await $(`#${txtIDup}`).html(tagArray);
@@ -422,7 +465,7 @@ fileUp.addEventListener('change', async (e) => {
   console.log('upPage:' + upPage);
 
   // ファイル名取得
-  var file = e.target.files;
+  let file = e.target.files;
   console.log(file[0].name);
   file_name = file[0].name; //file name取得
   blob = new Blob(file, { type: 'image/jpeg' }); //blob形式
@@ -524,22 +567,80 @@ editresetPage.addEventListener('click', (e, page) => {
 });
 // //
 //
-////////////////// Pageのリセット ///////////////
 
-for (var cB = 0; cB < ehonChoiceBottun.length; cB++) {
-  // ehonChoiceBottun[].addEventListener('click', (e, page) => {
-  //   EhonName = 'Mehon';
-  //   console.log(EhonName);
-  //   location.reload();
-  // });
-  ehonChoiceBottun[cB].addEventListener('click', function () {
-    EhonName = 'Dehon' + cB;
-    console.log(EhonName);
-    location.reload();
-  });
-}
-// //
+//
+//
+////////////////// 本の選択 ///////////////
+
+// for (let cB = 0; cB < ehonChoiceBottun.length; cB++) {
+//   // ehonChoiceBottun[].addEventListener('click', (e, page) => {
+//   //   EhonName = 'Mehon';
+//   //   console.log(EhonName);
+//   //   location.reload();
+//   // });
+//   ehonChoiceBottun[cB].addEventListener('click', function () {
+//     EhonName = 'Dehon' + cB;
+//     console.log(EhonName);
+//     location.reload();
+//   });
+// }
+// // //
 //
 //
 //
+/////////////////////////////////////////////////////
+//////////////// 本(Document)の新規作成 ///////////////
+/////////////////////////////////////////////////////
+
+//////////////// Title Box を出現させる ///////////////
+ehonAddBottun.addEventListener('click', async (e, page) => {
+  MakeEhonTitle.style.display = 'block';
+
+  //
+});
+
+//
+/////// Title Box に本の題名を書いて、本(Document)の新規作成() /////////
+$('#MakeSend').on('click', async function () {
+  let EhonTitle = $('#titleBox').val();
+  console.log('title:' + EhonTitle);
+
+  EhonTotal = EhonTotal + 1;
+  EhonDoc = 'Dehon' + EhonTotal;
+  // EhonDoc = 'Dehon9';
+  let EhonTotalPage = 8;
+  let data = {
+    EhonName: EhonTitle,
+    TotalPage: EhonTotalPage,
+  };
+
+  let AddEhon_SubColl = db.doc(EhonDoc);
+  await AddEhon_SubColl.set(data);
+
+  for (let i = 0; i < EhonTotalPage; i++) {
+    let AddEhonColl = 'Page' + i;
+    let AddEhonPage = 'docPage' + i;
+    let dataSub = {
+      imgURL: '',
+      txt: i,
+    };
+
+    await AddEhon_SubColl.collection(AddEhonColl).doc(AddEhonPage).set(dataSub);
+  }
+  //
+
+  let EhonDocUP = {
+    LastEhonName: EhonDoc,
+    EhonTotal: EhonTotal,
+    // [EhonTotal]: EhonName,
+  };
+
+  await db.doc('EhonInfo').update(EhonDocUP);
+  //
+  //
+
+  console.log('絵本追加:' + EhonTitle);
+  location.reload();
+});
+
 //
